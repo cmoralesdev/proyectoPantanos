@@ -14,7 +14,7 @@ export default function PantanoCard({ pantano }) {
 
 
       <ul>
-        <li><strong>Peces:</strong> {pantano.peces.join(', ')}</li>
+        <li><strong>Especies:</strong> {pantano.especies.join(', ')}</li>
         <li><strong>Valoración:</strong> {pantano.valoracion} ⭐</li>
 
       </ul>

@@ -1,6 +1,6 @@
 .banner {
     position: fixed;
-    top: 0;
+    top: 80px;
     left: 0;
     width: 100%;
     z-index: 1000;
@@ -9,6 +9,7 @@
 .banner img {
     width: 100%;
     height: auto;
-    max-height: 200px;
+    min-height: 180px;   /* ✔️ altura mínima que nunca bajará */
+    max-height: 230px;   /* ✔️ límite superior si quieres */
     object-fit: cover;
 }

@@ -13,14 +13,15 @@ export default function ReservaModal({ pantano, onClose, reserva = null }) {
     
     useEffect(() => {
         if (reserva) {
-            setValue("fecha", reserva.fecha);
-            setValue("guiaId", reserva.guiaId);
+            setValue("fecha", reserva.reserva.fecha);
+            setValue("guiaId", reserva.guia.id);
         }
     }, [reserva, setValue]);
 
     useEffect(() => {
         const getGuias = async () => {
             try {
+
                 const response = await axios.get("http://localhost:4000/guias", {
                     params: { pantanoId: pantano.id }
                 });
@@ -35,21 +36,15 @@ export default function ReservaModal({ pantano, onClose, reserva = null }) {
 
     const onSubmit = async (data) => {
         try {
-            const selectedGuia = guias.find((g) => g.id === data.guiaId);
             const datosReserva = {
                 ...data,
                 pantanoId: pantano.id,
-                pantanoNombre: pantano.nombre,
-                pantanoImagen: pantano.imagen,
                 usuarioId: user.id,
-                nombre: user.nombre,
-                guiaNombre: selectedGuia?.nombre,
-                status: "pendiente",
-                creadaEn: new Date().toISOString(),
+            
             };
 
             if (reserva) {
-                await axios.put(`http://localhost:4000/reservas/${reserva.id}`, datosReserva);
+                await axios.put(`http://localhost:4000/reservas/${reserva.reserva.id}`, datosReserva);
                 window.alert("Reserva actualizada correctamente.");
             } else {
                 await axios.post("http://localhost:4000/reservas", datosReserva);

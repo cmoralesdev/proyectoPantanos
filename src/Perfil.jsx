@@ -68,18 +68,18 @@ export default function Perfil() {
                     {reservas.length === 0 ? (
                         <p>No tienes reservas realizadas.</p>
                     ) : (
-                        reservas.map((res) => (
-                            <div className="perfil-card" key={res.id}>
-                                <h3>{res.pantanoNombre}</h3>
-                                <img src={res.pantanoImagen} alt={res.pantanoNombre} width="250" />
+                        reservas.map((item) => (
+                            <div className="perfil-card" key={item.reserva.id}>
+                                <h3>{item.pantano.nombre}</h3>
+                                <img src={item.pantano.imagen} alt={item.pantano.nombre} width="250" />
                                 <ul>
-                                    <li><strong>Fecha:</strong> {res.fecha}</li>
-                                    <li><strong>Guía:</strong> {res.guiaNombre}</li>
-                                    <li><strong>Estado:</strong> {res.status}</li>
+                                    <li><strong>Fecha:</strong> {item.reserva.fecha}</li>
+                                    <li><strong>Guía:</strong> {item.guia?.nombre}</li>
+                                    <li><strong>Estado:</strong> {item.reserva.status}</li>
                                 </ul>
                                 <div className="perfil-botones">
-                                    <button onClick={() => actualizarReserva(res)}>Actualizar</button>
-                                    <button onClick={() => eliminarReserva(res.id)}>Eliminar</button>
+                                    <button onClick={() => actualizarReserva(item)}>Actualizar</button>
+                                    <button onClick={() => eliminarReserva(item.reserva.id)}>Eliminar</button>
                                 </div>
                             </div>
                         ))
@@ -91,15 +91,14 @@ export default function Perfil() {
             {showModal && (
                 <ReservaModal
                     pantano={{
-                        id: reservaEditando.pantanoId,
-                        nombre: reservaEditando.pantanoNombre,
-                        imagen: reservaEditando.pantanoImagen
+                        id: reservaEditando.pantano.id,
+                        nombre: reservaEditando.pantano.nombre,
+                        imagen: reservaEditando.pantano.imagen
                     }}
                     reserva={reservaEditando}
                     onClose={async () => {
                         setShowModal(false);
                         setReservaEditando(null);
-                        // Vuelve a cargar las reservas después de cerrar el modal
                         try {
                             const response = await axios.get("http://localhost:4000/reservas", {
                                 params: { usuarioId: user.id }

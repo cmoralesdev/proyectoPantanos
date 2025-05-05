@@ -1,6 +1,6 @@
 
 .home-container {
-  max-width: 1280px;
+  max-width: 1480px;
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
@@ -37,7 +37,7 @@
   flex-wrap: wrap; 
   gap: 20px; 
   padding: 20px;
-  margin-left: 190px; 
+  margin-left: 220px; 
   margin-top:  30px; 
   justify-content: flex-start; 
 }

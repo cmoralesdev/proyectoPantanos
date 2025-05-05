@@ -24,7 +24,7 @@ export default function Guias({ pantanoId }) {
 
     return (
         <div className="guias-container">
-            <h3>Guías disponibles</h3>
+            
             {guias.map((guia) => (
                 <GuiaCard key={guia.id} guia={guia} />
             ))}

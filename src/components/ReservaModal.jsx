@@ -5,10 +5,18 @@ import { useEffect, useState } from 'react';
 import { useUser } from '../context/UserContext';
 import './ReservaModal.css';
 
-export default function ReservaModal({ pantano, onClose }) {
-    const { register, handleSubmit, reset } = useForm();
+export default function ReservaModal({ pantano, onClose, reserva = null }) {
+    const { register, handleSubmit, reset, setValue } = useForm();
     const [guias, setGuias] = useState([]);
     const user = useUser();
+
+    
+    useEffect(() => {
+        if (reserva) {
+            setValue("fecha", reserva.fecha);
+            setValue("guiaId", reserva.guiaId);
+        }
+    }, [reserva, setValue]);
 
     useEffect(() => {
         const getGuias = async () => {
@@ -28,33 +36,39 @@ export default function ReservaModal({ pantano, onClose }) {
     const onSubmit = async (data) => {
         try {
             const selectedGuia = guias.find((g) => g.id === data.guiaId);
-            const nuevaReserva = {
+            const datosReserva = {
                 ...data,
                 pantanoId: pantano.id,
                 pantanoNombre: pantano.nombre,
                 pantanoImagen: pantano.imagen,
-                usuarioId: user.id,        
-                nombre: user.nombre,   
-                guiaNombre: selectedGuia?.nombre,    
+                usuarioId: user.id,
+                nombre: user.nombre,
+                guiaNombre: selectedGuia?.nombre,
                 status: "pendiente",
                 creadaEn: new Date().toISOString(),
             };
 
-            await axios.post("http://localhost:4000/reservas", nuevaReserva);
+            if (reserva) {
+                await axios.put(`http://localhost:4000/reservas/${reserva.id}`, datosReserva);
+                window.alert("Reserva actualizada correctamente.");
+            } else {
+                await axios.post("http://localhost:4000/reservas", datosReserva);
+                window.alert("Reserva pendiente de aceptar.");
+            }
+
             reset();
             onClose();
         } catch (error) {
-            console.error("Error al crear reserva:", error);
+            console.error("Error al guardar reserva:", error);
+            window.alert("Error al guardar la reserva.");
         }
     };
 
     return (
         <div className="modal-overlay">
             <div className="modal-content">
-                <h3>Reservar en {pantano.nombre}</h3>
+                <h3>{reserva ? "Editar reserva" : `Reservar en ${pantano.nombre}`}</h3>
                 <form onSubmit={handleSubmit(onSubmit)}>
-                    <p><strong>Reservando como:</strong> {user.nombre}</p>
-
                     <label>Fecha:
                         <input type="date" {...register("fecha", { required: true })} />
                     </label>

@@ -8,12 +8,17 @@ import PantanoInfo from './components/PantanoInfo';
 import './PantanoDetails.css';
 import './Home.css'
 import Guias from './components/Guias';
+import Footer from './components/Footer';
 
 
 export default function PantanoDetails() {
   const { id } = useParams();
   const location = useLocation();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   const pantanoInicial = location.state?.pantano;
   const [pantano, setPantano] = useState(pantanoInicial);
@@ -34,27 +39,30 @@ export default function PantanoDetails() {
   if (!pantano) return <p>Cargando pantano...</p>;
 
 
-  
+
   return (
+    <>
+      <div className="pantano-details">
 
-    <div className="pantano-details">
+        <Header />
 
-      <Header />
+        <Banner />
 
-      <Banner />
+        <PantanoInfo
+          pantano={pantano}
+          onReservar={() => setShowModal(true)}
+          onVolver={() => navigate("/")}
+        />
 
-      <PantanoInfo
-        pantano={pantano}
-        onReservar={() => setShowModal(true)}
-        onVolver={() => navigate("/")}
-      />
-
-      <Guias pantanoId={pantano.id} />
+        <Guias pantanoId={pantano.id} />
 
 
-      {showModal && (
-        <ReservaModal pantano={pantano} onClose={() => setShowModal(false)} />
-      )}
-    </div>
+        {showModal && (
+          <ReservaModal pantano={pantano} onClose={() => setShowModal(false)} />
+        )}
+        
+      </div>
+      <Footer />  
+    </>
   );
 }

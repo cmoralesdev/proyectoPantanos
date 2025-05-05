@@ -15,10 +15,11 @@
     transform: scale(1.02);
 }
 
-.guia-card h4 {
+.guia-card h3 {
     margin: 0 0 6px;
     font-size: 1rem;
     color: #333;
+    text-align: center;
 }
 
 .guia-card p {

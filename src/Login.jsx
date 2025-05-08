@@ -1,18 +1,8 @@
-import React from 'react'
-import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "./config/firebase.config";
+import React, { useContext } from 'react'
+import { useUser } from './context/UserContext';
 
 export default function Login() {
-
-
-    const email = "carlossoftwaremail@gmail.com"
-    const password = "123456"
-
-    const login = async () => {
-        const test = await signInWithEmailAndPassword(auth, email, password);
-    }
-
-
+    const {user,login} = useUser()
 
 
     return (

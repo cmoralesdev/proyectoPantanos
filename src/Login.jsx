@@ -10,8 +10,6 @@ export default function Login() {
 
     const login = async () => {
         const test = await signInWithEmailAndPassword(auth, email, password);
-        console.log(test)
-        console.log("HOLA", test.user)
     }
 
 

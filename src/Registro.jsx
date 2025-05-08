@@ -11,8 +11,7 @@ export default function Registro() {
 
     const register = async () => {
         const test = await createUserWithEmailAndPassword(auth, email, password);
-        console.log(test)
-        console.log("HOLA", test.user)
+
     }
 
 

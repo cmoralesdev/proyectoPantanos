@@ -8,6 +8,10 @@ import PantanoDetails from './PantanoDetails.jsx';
 import Perfil from './Perfil.jsx';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { UserContext } from './context/UserContext';
+import Login from './Login.jsx';
+import Registro from './Registro.jsx';
+
+//console.log(import.meta.env.VITE_PROJECT_ID)
 
 // Usuario simulado
 const usuarioSimulado = {
@@ -21,7 +25,10 @@ const router = createBrowserRouter([
   { path: "/", element: <Home /> },
   { path: "/:id", element: <PantanoDetails /> },
   { path: "/perfil", element: <Perfil /> },
+  { path: "/login", element: <Login /> },
+  { path: "/registro", element: <Registro /> },
   { path: "*", element: <NotFound /> }
+
 ]);
 
 createRoot(document.getElementById('root')).render(

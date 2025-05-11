@@ -1,23 +1,86 @@
-import React from 'react'
-import { auth } from './config/firebase.config'
-import { createUserWithEmailAndPassword } from 'firebase/auth'
-
+/*
+import React, { useState } from "react";
+import { useUser } from "./context/UserContext";
+import './Registro.css';
 
 export default function Registro() {
+    const { register } = useUser();
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
 
-
-    const email = "carlossoftwaail@manolo.com"
-    const password = "123456"
-
-    const register = async () => {
-        const test = await createUserWithEmailAndPassword(auth, email, password);
-
-    }
-
-
-
+    const handleRegister = (e) => {
+        e.preventDefault();
+        register(email, password); // Implementa esta función en tu contexto
+    };
 
     return (
-        <button onClick={register}> Registro </button>
-    )
+        <div className="auth-container">
+            <h2>Registro</h2>
+            <form onSubmit={handleRegister}>
+                <label>Email:</label>
+                <input 
+                    type="email" 
+                    value={email} 
+                    onChange={(e) => setEmail(e.target.value)} 
+                    required 
+                />
+                <label>Contraseña:</label>
+                <input 
+                    type="password" 
+                    value={password} 
+                    onChange={(e) => setPassword(e.target.value)} 
+                    required 
+                />
+                <button type="submit">Registrarse</button>
+            </form>
+        </div>
+    );
+}
+
+*/
+
+import React, { useState } from "react";
+import { useUser } from "./context/UserContext";
+import { useNavigate } from "react-router-dom";
+import './Registro.css';
+
+export default function Registro() {
+    const { register } = useUser();
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const navigate = useNavigate();
+
+    const handleRegister = async (e) => {
+        e.preventDefault();
+        try {
+            await register(email, password); 
+            navigate("/"); // Redirige al home tras registro exitoso
+        } catch (error) {
+            console.error("Error al registrar:", error);
+        
+        }
+    };
+
+    return (
+        <div className="auth-container">
+            <h2>Registro</h2>
+            <form onSubmit={handleRegister}>
+                <label>Email:</label>
+                <input 
+                    type="email" 
+                    value={email} 
+                    onChange={(e) => setEmail(e.target.value)} 
+                    required 
+                />
+                <label>Contraseña:</label>
+                <input 
+                    type="password" 
+                    value={password} 
+                    onChange={(e) => setPassword(e.target.value)} 
+                    required 
+                />
+                <button type="submit">Registrarse</button>
+            </form>
+        </div>
+    );
 }

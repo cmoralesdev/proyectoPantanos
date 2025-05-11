@@ -12,8 +12,8 @@ export default function Perfil() {
     const [reservas, setReservas] = useState([]);
     const [reservaSeleccionada, setReservaSeleccionada] = useState(null);
     const [showModal, setShowModal] = useState(false);
-    const {user} = useUser();
-    console.log(user)
+    const { user } = useUser();
+    
 
     const getReservas = async (userId) => {
         if (!userId) return;
@@ -52,6 +52,10 @@ export default function Perfil() {
             <div className="perfil-container">
                 <Header />
                 <Banner />
+
+                {user && (
+                    <h2 className="saludo-usuario">Hola, {user.uid}</h2>
+                )}
 
                 <h2>Mis Reservas</h2>
                 <div className="reservas-container">

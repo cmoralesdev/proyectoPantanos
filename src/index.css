@@ -14,7 +14,7 @@
 }
 
 #root {
-  width: 100vw;         /* Ocupa todo el ancho visible */
+  width: 100vw;         
   margin: 0;
   padding: 0;
   box-sizing: border-box;

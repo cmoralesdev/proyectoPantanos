@@ -8,15 +8,6 @@ import { auth } from "../config/firebase.config";
 
 const UserContext = createContext(null);
 
-// const usuarioSimulado = {
-//   id: "Ndw9ViAft6gPct2roo5A ",
-//   nombre: "Javier Ruiz",
-//   email: "javier@gmail.com",
-//   telefono: "610234567",
-// };
-
-//const emailTest = "carlossoftwaremail@gmail.com";
-//const password = "123456";
 
 export const UserProvider = ({ children }) => {
     const [user, setUser] = useState(null);
@@ -31,9 +22,6 @@ export const UserProvider = ({ children }) => {
     }, []);
     const register = async (email, password) => {
         try {
-            //cambiar email y password por datos que vengan de un formulario de registro
-            //const email = "carlossoftwaail@manolo.com";
-            //const password = "123456";
             const response = await createUserWithEmailAndPassword(
                 auth,
                 email,
@@ -64,7 +52,7 @@ export const UserProvider = ({ children }) => {
         }catch (error) {
             console.error("Error en login:", error);
             window.alert("Error al iniciar sesión. Verifica tus credenciales.");
-            throw error; // Por si quieres capturarlo en el componente de Login
+            throw error; 
         }
     };
 
@@ -87,5 +75,5 @@ export const UserProvider = ({ children }) => {
     );
 };
 
-// Hook para acceder fácilmente al usuario
+
 export const useUser = () => useContext(UserContext);

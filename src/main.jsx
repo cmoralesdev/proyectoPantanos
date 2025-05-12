@@ -10,8 +10,9 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { UserProvider } from './context/UserContext';
 import Login from './Login.jsx';
 import Registro from './Registro.jsx';
+import RecoverPass from './RecoverPass.jsx';
 
-//console.log(import.meta.env.VITE_PROJECT_ID)
+
 
 const router = createBrowserRouter([
   { path: "/", element: <Home /> },
@@ -19,8 +20,8 @@ const router = createBrowserRouter([
   { path: "/perfil", element: <Perfil /> },
   { path: "/login", element: <Login /> },
   { path: "/registro", element: <Registro /> },
+  { path: "/recover", element: <RecoverPass /> },
   { path: "*", element: <NotFound /> }
-
 ]);
 
 createRoot(document.getElementById('root')).render(

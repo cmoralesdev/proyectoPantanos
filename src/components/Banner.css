@@ -9,7 +9,7 @@
 .banner img {
     width: 100%;
     height: auto;
-    min-height: 180px;   /* ✔️ altura mínima que nunca bajará */
-    max-height: 230px;   /* ✔️ límite superior si quieres */
+    min-height: 180px;   
+    max-height: 230px;   
     object-fit: cover;
 }

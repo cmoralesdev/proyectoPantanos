@@ -74,7 +74,6 @@ export default function Perfil() {
                 </div>
             </div>
 
-            {/* Modal de actualización */}
             {showModal && (
                 <ReservaModal
                     pantano={{

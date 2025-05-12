@@ -1,7 +1,6 @@
 .quienes-container {
     max-width: 800px;
     margin: 350px auto 40px;
-    /* ↑ Top margin compensado por el banner fijo */
     padding: 2rem;
     background-color: #f9f9f9;
     color: #333;

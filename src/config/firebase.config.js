@@ -3,7 +3,7 @@ import { getAuth } from "firebase/auth";
 
 
 
-// TODO: Replace the following with your app's Firebase project configuration
+
 
 console.log(import.meta.env.VITE_API_KEY)
 const firebaseConfig = {

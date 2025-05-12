@@ -6,7 +6,7 @@ export default function GuiaCard({ guia }) {
             <h3>Guías disponibles</h3>
             <h4>{guia.nombre}</h4>
             
-            <p><strong>Contacto</strong> {guia.telefono}</p>
+            <p><strong>Teléfono</strong> {guia.telefono}</p>
             
         </div>
     );

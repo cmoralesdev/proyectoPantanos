@@ -13,35 +13,45 @@
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
-/* Logo */
+
 .header-left .logo {
     height: 60px;
     width: 60px;
     object-fit: cover;
     border-radius: 40%;
     margin-left: 40px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer; 
+}
+.header-left .logo:hover {
+    transform: scale(1.1); 
+    box-shadow: 0 4px 15px rgba(30, 144, 255, 0.5); 
+    background: linear-gradient(135deg, #1e88e5, #0d47a1);
+    padding: 5px; 
+    border-radius: 50%; 
 }
 
 .header-right {
     display: flex;
-    align-items: center; /* Centra verticalmente */
-    gap: 10px; /* Espacio entre Logout y Perfil */
+    align-items: center; 
+    gap: 10px; 
 }
-/* Perfil Icon */
+
 .perfil-icon {
     font-size: 1.8rem;
     text-decoration: none;
-    margin-right: 20px;
+    margin-right: 100px;
     color: #1e88e5;
     cursor: pointer;
-    margin-right: 100px;
+    transition: transform 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .perfil-icon:hover {
+    transform: scale(1.2);
     color: #0d47a1;
+    box-shadow: 0 4px 15px rgba(30, 144, 255, 0.4);
 }
 
-/* Logout Button */
 .logout-button {
     background-color: #f2f2f2;
     color: #555;

@@ -1,8 +1,26 @@
-import { Link } from "react-router-dom";
-import './Header.css';
-import logo from '../assets/logo.png';
+
+import { Link, useNavigate } from "react-router-dom";
+import "./Header.css";
+import logo from "../assets/logo.png";
+import { useUser } from "../context/UserContext";
 
 export default function Header() {
+    const { user, logout } = useUser();
+    const navigate = useNavigate();
+
+    const handlePerfilClick = () => {
+        if (user) {
+            navigate("/perfil");
+        } else {
+            navigate("/login");
+        }
+    };
+
+    const handleLogout = async () => {
+        await logout();
+        navigate("/");  
+    };
+
     return (
         <header className="header">
             <div className="header-left">
@@ -11,9 +29,19 @@ export default function Header() {
                 </Link>
             </div>
             <div className="header-right">
-                <Link to="/perfil" className="perfil-icon" title="Perfil">
+                {user && (
+                    <button className="logout-button" onClick={handleLogout}>
+                        Cerrar sesión
+                    </button>
+                )}
+                <span 
+                    className="perfil-icon" 
+                    title="Perfil" 
+                    onClick={handlePerfilClick} 
+                    style={{ cursor: "pointer" }}
+                >
                     👤
-                </Link>
+                </span>
             </div>
         </header>
     );

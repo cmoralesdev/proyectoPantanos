@@ -7,27 +7,27 @@ import NotFound from './NotFound.jsx';
 import PantanoDetails from './PantanoDetails.jsx';
 import Perfil from './Perfil.jsx';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import { UserContext } from './context/UserContext';
+import { UserProvider } from './context/UserContext';
+import Login from './Login.jsx';
+import Registro from './Registro.jsx';
+import RecoverPass from './RecoverPass.jsx';
 
-// Usuario simulado
-const usuarioSimulado = {
-  id: "Ndw9ViAft6gPct2roo5A ",
-  nombre: "Javier Ruiz",
-  email: "javier@gmail.com",
-  telefono: "610234567"
-};
+
 
 const router = createBrowserRouter([
   { path: "/", element: <Home /> },
   { path: "/:id", element: <PantanoDetails /> },
   { path: "/perfil", element: <Perfil /> },
+  { path: "/login", element: <Login /> },
+  { path: "/registro", element: <Registro /> },
+  { path: "/recover", element: <RecoverPass /> },
   { path: "*", element: <NotFound /> }
 ]);
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <UserContext.Provider value={usuarioSimulado}>
+    <UserProvider>
       <RouterProvider router={router} />
-    </UserContext.Provider>
+    </UserProvider>
   </StrictMode>
 );

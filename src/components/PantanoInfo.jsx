@@ -1,7 +1,20 @@
 
 import './PantanoInfo.css';
+import { useUser } from '../context/UserContext';
+import { useNavigate } from 'react-router-dom';
 
 export default function PantanoInfo({ pantano, onReservar, onVolver }) {
+    const { user } = useUser();
+    const navigate = useNavigate();
+
+    const handleReservar = () => {
+        if (!user) {
+            navigate("/login");
+            return; 
+        }
+        onReservar(); 
+    };
+
     return (
         <div className="pantano-content">
             <div className="pantano-imagen">
@@ -17,7 +30,7 @@ export default function PantanoInfo({ pantano, onReservar, onVolver }) {
                     <li><strong>Valoración:</strong> {pantano.valoracion} ⭐</li>
                 </ul>
                 <div className="detalles-botones">
-                    <button onClick={onReservar}>Reservar</button>
+                    <button onClick={handleReservar}>Reservar</button>
                     <button onClick={onVolver}>Volver</button>
                 </div>
             </div>

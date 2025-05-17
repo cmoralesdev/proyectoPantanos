@@ -47,6 +47,10 @@
     margin-top: 10px;
 }
 
+.saludo-usuario {
+    text-align: left;
+    margin-left: 100px;
+}
 
 @media (max-width: 768px) {
     .reservas-container {

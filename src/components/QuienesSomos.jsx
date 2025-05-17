@@ -4,6 +4,7 @@ export default function QuienesSomos() {
     return (
         <section className="quienes-container">
             <h2>¿Quiénes somos?</h2>
+            <h3>¡¡ESTA APP ES UN PROYECTO DE PRUEBAS!! </h3>
             <p>
                 Somos un grupo de apasionados por la pesca que busca conectar a pescadores con guías profesionales en diversos pantanos de España, donde se pueden 
                 pescar especies como lucios, black bass, carpas y siluros. 

@@ -12,7 +12,13 @@ export default function Perfil() {
     const [reservas, setReservas] = useState([]);
     const [reservaSeleccionada, setReservaSeleccionada] = useState(null);
     const [showModal, setShowModal] = useState(false);
-    const user = useUser();
+    const { user } = useUser();
+
+    
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
+
 
     const getReservas = async (userId) => {
         if (!userId) return;
@@ -27,14 +33,14 @@ export default function Perfil() {
     };
 
     useEffect(() => {
-        getReservas(user?.id);
-    }, [user?.id]);
+        getReservas(user?.uid);
+    }, [user?.uid]);
 
     const eliminarReserva = async (id) => {
         try {
             await axios.delete(`http://localhost:4000/reservas/${id}`);
             window.alert("Reserva eliminada correctamente.");
-            getReservas(user?.id);
+            getReservas(user?.uid);
         } catch (error) {
             console.error("Error al eliminar la reserva", error);
             window.alert("Hubo un error al intentar eliminar la reserva.");
@@ -52,6 +58,9 @@ export default function Perfil() {
                 <Header />
                 <Banner />
 
+                {user && (
+                    <h2 className="saludo-usuario">Hola, {user.name || user.email}</h2>
+                )}
                 <h2>Mis Reservas</h2>
                 <div className="reservas-container">
                     {reservas.length === 0 ? (
@@ -69,7 +78,6 @@ export default function Perfil() {
                 </div>
             </div>
 
-            {/* Modal de actualización */}
             {showModal && (
                 <ReservaModal
                     pantano={{
@@ -81,7 +89,7 @@ export default function Perfil() {
                     onClose={() => {
                         setShowModal(false);
                         setReservaSeleccionada(null);
-                        getReservas(user?.id);
+                        getReservas(user?.uid);
                     }}
                 />
             )}

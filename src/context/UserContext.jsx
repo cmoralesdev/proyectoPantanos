@@ -5,9 +5,13 @@ import {
     signOut,
 } from "firebase/auth";
 import { auth } from "../config/firebase.config";
+import { getFirestore, doc, setDoc, getDoc } from "firebase/firestore";
+
+
+
 
 const UserContext = createContext(null);
-
+const db = getFirestore();
 
 export const UserProvider = ({ children }) => {
     const [user, setUser] = useState(null);
@@ -20,39 +24,43 @@ export const UserProvider = ({ children }) => {
             setUser(JSON.parse(session));
         }
     }, []);
-    const register = async (email, password) => {
+    const register = async (email, password, name, phone) => {
         try {
-            const response = await createUserWithEmailAndPassword(
-                auth,
-                email,
-                password
-            );
+            const response = await createUserWithEmailAndPassword(auth, email, password);
             const createdUser = response.user;
             const { uid, accessToken } = createdUser;
-            localStorage.setItem("session", JSON.stringify({ uid, accessToken }));
-            setUser({ uid, accessToken });
+    
+            await setDoc(doc(db, "usuarios", uid), {
+                email,
+                name,
+                phone,
+                createdAt: new Date().toISOString(),
+            });
+    
+            localStorage.setItem("session", JSON.stringify({ uid, accessToken, email, name, phone }));
+            setUser({ uid, accessToken, email, name, phone });
+    
             window.alert("Registro exitoso. ¡Bienvenido!");
         } catch (error) {
-            console.log("Comprueba que el email no esté ya en uso");
-            console.log(error);
+            console.error("Error en registro:", error);
             window.alert("Error al registrar: " + error.message);
         }
     };
 
     const login = async (email, password) => {
         try {
-            const signInData = await signInWithEmailAndPassword(
-                auth,
-                email,
-                password
-            );
+            const signInData = await signInWithEmailAndPassword(auth, email, password);
             const { uid, accessToken } = signInData.user;
-            localStorage.setItem("session", JSON.stringify({ uid, accessToken }));
-            setUser({ uid, accessToken });
-        }catch (error) {
+    
+            const docSnap = await getDoc(doc(db, "usuarios", uid));
+            const userData = docSnap.exists() ? docSnap.data() : {};
+    
+            localStorage.setItem("session", JSON.stringify({ uid, accessToken, email, name: userData.name, phone: userData.phone }));
+            setUser({ uid, accessToken, email, name: userData.name, phone: userData.phone });
+        } catch (error) {
             console.error("Error en login:", error);
             window.alert("Error al iniciar sesión. Verifica tus credenciales.");
-            throw error; 
+            throw error;
         }
     };
 

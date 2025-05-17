@@ -13,7 +13,12 @@ export default function Perfil() {
     const [reservaSeleccionada, setReservaSeleccionada] = useState(null);
     const [showModal, setShowModal] = useState(false);
     const { user } = useUser();
+
     
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
+
 
     const getReservas = async (userId) => {
         if (!userId) return;
@@ -54,9 +59,8 @@ export default function Perfil() {
                 <Banner />
 
                 {user && (
-                    <h2 className="saludo-usuario">Hola, {user.uid}</h2>
+                    <h2 className="saludo-usuario">Hola, {user.name || user.email}</h2>
                 )}
-
                 <h2>Mis Reservas</h2>
                 <div className="reservas-container">
                     {reservas.length === 0 ? (
